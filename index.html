@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>Dermátika — Piel clara. Vida nueva.</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0A1628;--white:#FAFCFF;--snow:#F4F7FB;--mist:#E4ECF4;
+  --teal:#0BA3BB;--teal-d:#088A9F;--teal-l:#D6F2F7;
+  --navy:#122140;--slate:#445B72;--smoke:#8EA5BC;
+  --gold:#C8902A;--gold-l:#FBF0D8;
+  --green:#18896A;--green-l:#D4EDE6;
+  --elite:#8B4A00;--elite-l:#FBF0D8;
+  --display:'Cormorant Garamond',Georgia,serif;
+  --body:'Outfit',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--white)!important;color:var(--ink)!important;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+@media(prefers-color-scheme:dark){
+  html,body{background:#FAFCFF!important;color:#0A1628!important}
+  .plan-card,.step,.faq-item,.benefit-item,.testi,.doc-card,.proto-item{background:#ffffff!important;color:#0A1628!important}
+  section{background-color:inherit!important}
+}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,5vw,4rem);background:rgba(250,252,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--mist);transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 4px 20px rgba(10,22,40,.08)}
+.nav-logo{font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--ink);text-decoration:none;letter-spacing:-.02em}
+.nav-logo span{color:var(--teal)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.78rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--slate);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--teal)}
+.nav-cta{background:var(--teal);color:white;padding:.55rem 1.4rem;border-radius:50px;font-size:.82rem;font-weight:600;text-decoration:none;transition:all .2s;box-shadow:0 2px 12px rgba(11,163,187,.3)}
+.nav-cta:hover{background:var(--teal-d);transform:translateY(-1px)}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4rem;padding:64px clamp(1rem,6vw,5rem) 0;background:var(--white);position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(11,163,187,.06) 0%,transparent 70%);right:-150px;top:50%;transform:translateY(-50%);pointer-events:none}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:var(--teal-l);border:1px solid rgba(11,163,187,.2);border-radius:50px;padding:.4rem 1rem;font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-d);margin-bottom:1.5rem}
+.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0}
+.hero-h1{font-family:var(--display);font-size:clamp(3rem,5.5vw,5rem);font-weight:700;line-height:1.02;letter-spacing:-.02em;margin-bottom:1.2rem;color:var(--ink)}
+.hero-h1 em{font-style:italic;color:var(--teal)}
+.hero-h1 .muted{color:var(--smoke);font-weight:400;font-style:italic;display:block;font-size:72%}
+.hero-sub{font-size:1rem;color:var(--slate);line-height:1.8;max-width:460px;margin-bottom:2rem}
+.hero-cta-group{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.btn-primary{background:var(--teal);color:white;padding:1rem 2.2rem;border-radius:50px;font-size:.95rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;box-shadow:0 6px 28px rgba(11,163,187,.35);transition:all .22s}
+.btn-primary:hover{background:var(--teal-d);transform:translateY(-2px)}
+.btn-ghost{color:var(--slate);font-size:.9rem;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;transition:color .2s}
+.btn-ghost:hover{color:var(--teal)}
+.hero-proof{display:flex;gap:2rem;flex-wrap:wrap}
+.hp-item{display:flex;flex-direction:column;gap:2px}
+.hp-val{font-family:var(--display);font-size:1.8rem;font-weight:700;color:var(--ink);line-height:1;letter-spacing:-.03em}
+.hp-lbl{font-size:.65rem;color:var(--smoke);text-transform:uppercase;letter-spacing:.08em;font-weight:500}
+.hp-sep{width:1px;height:36px;background:var(--mist);align-self:center}
+
+/* Hero card */
+.hero-right{position:relative;z-index:2;display:flex;justify-content:center;align-items:center}
+.hero-card{background:white;border-radius:24px;width:320px;box-shadow:0 24px 64px rgba(10,22,40,.14),0 0 0 1px rgba(10,22,40,.05);overflow:hidden}
+.hc-top{background:linear-gradient(135deg,var(--navy) 0%,#1a3a5c 100%);padding:1.4rem 1.5rem 1rem}
+.hc-brand{font-family:var(--display);font-size:.85rem;font-weight:600;color:rgba(255,255,255,.45);margin-bottom:.6rem}
+.hc-patient{font-size:1.1rem;font-weight:600;color:white;margin-bottom:.1rem}
+.hc-plan{display:inline-flex;align-items:center;gap:.4rem;background:rgba(11,163,187,.25);border:1px solid rgba(11,163,187,.4);border-radius:50px;padding:.25rem .8rem;font-size:.65rem;font-weight:700;color:#7DE8F5;text-transform:uppercase;letter-spacing:.08em;margin-top:.5rem}
+.hc-steps{padding:1.1rem 1.5rem}
+.hc-step{display:flex;align-items:center;gap:.8rem;padding:.6rem 0;border-bottom:1px solid var(--snow)}
+.hc-step:last-child{border-bottom:none}
+.hc-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;flex-shrink:0}
+.hc-dot.done{background:var(--green-l);color:var(--green)}
+.hc-dot.active{background:var(--teal-l);color:var(--teal)}
+.hc-step-text{font-size:.72rem;color:var(--slate);font-weight:500}
+.hc-step-time{font-size:.6rem;color:var(--smoke);font-family:var(--mono)}
+.hc-foot{background:var(--teal);padding:.85rem 1.5rem;display:flex;justify-content:space-between;align-items:center}
+.hc-foot span{color:white;font-size:.75rem;font-weight:600}
+.hc-foot small{color:rgba(255,255,255,.6);font-size:.62rem}
+
+/* SECTIONS */
+.section{padding:5rem clamp(1rem,6vw,5rem);background:var(--white)}
+.section.alt{background:var(--snow)}
+.section.dark{background:var(--navy)}
+.eyebrow{font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--teal)}
+.section-h{font-family:var(--display);font-size:clamp(2rem,4vw,3.2rem);font-weight:700;line-height:1.06;letter-spacing:-.02em;margin-bottom:.7rem;color:var(--ink)}
+.section-h em{font-style:italic;color:var(--teal)}
+.section-h.light{color:white}
+.section-p{font-size:.95rem;color:var(--slate);line-height:1.8;max-width:560px;margin-bottom:2.5rem}
+
+/* COMO FUNCIONA */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem}
+.step{background:white;border:1px solid var(--mist);border-radius:18px;padding:1.6rem 1.3rem;transition:all .25s}
+.step:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(10,22,40,.08);border-color:var(--teal-l)}
+.step-num{width:52px;height:52px;border-radius:50%;background:var(--teal-l);border:2px solid var(--teal);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:1.1rem;font-weight:700;margin-bottom:1.1rem;color:var(--teal)}
+.step-h{font-size:.92rem;font-weight:700;margin-bottom:.4rem;color:var(--ink)}
+.step-p{font-size:.78rem;color:var(--slate);line-height:1.65}
+.step-time{margin-top:.8rem;font-family:var(--mono);font-size:.62rem;color:var(--teal);font-weight:500}
+
+/* PLANES — MODAL STYLE */
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:2rem}
+
+/* Plan cards */
+.plan-card{border-radius:24px;overflow:hidden;border:2px solid var(--mist);background:white;display:flex;flex-direction:column;transition:all .3s;position:relative}
+.plan-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(10,22,40,.12)}
+.plan-card.featured{border-color:var(--teal)}
+.plan-card.featured::before{content:'★ El más completo';position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--teal);color:white;font-size:.6rem;font-weight:700;padding:4px 16px;border-radius:50px;white-space:nowrap;text-transform:uppercase;letter-spacing:.07em}
+
+/* Plan head */
+.plan-head{padding:1.8rem 1.5rem 1.3rem}
+.plan-p1 .plan-head{background:linear-gradient(135deg,#0BA3BB,#4ABED4)}
+.plan-p2 .plan-head{background:linear-gradient(135deg,#0A7A8B,#1a5c7a)}
+.plan-p3 .plan-head{background:linear-gradient(135deg,#8B4A00,#C9903A)}
+.plan-tag{font-family:var(--mono);font-size:.58rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.5rem}
+.plan-name{font-family:var(--display);font-size:1.7rem;font-weight:700;color:white;line-height:1;margin-bottom:.35rem}
+.plan-tagline{font-size:.78rem;color:rgba(255,255,255,.78);line-height:1.55}
+
+/* Plan price */
+.plan-price-block{padding:1.2rem 1.5rem;border-bottom:1px solid var(--mist);display:flex;align-items:flex-end;gap:.4rem}
+.plan-price{font-family:var(--display);font-size:2.4rem;font-weight:700;color:var(--ink);line-height:1;letter-spacing:-.03em}
+.plan-period{font-size:.72rem;color:var(--smoke);padding-bottom:.2rem;line-height:1.4}
+
+/* Plan benefits */
+.plan-body{padding:1.3rem 1.5rem;flex:1}
+.plan-who{font-size:.78rem;font-weight:600;color:var(--slate);margin-bottom:1rem;font-style:italic;padding-bottom:.8rem;border-bottom:1px solid var(--mist)}
+
+.benefits-list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.2rem}
+.benefit-item{display:flex;align-items:flex-start;gap:.6rem;font-size:.78rem;color:var(--slate);line-height:1.5}
+.benefit-item .icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0;margin-top:1px}
+.benefit-item.included .icon{background:var(--green-l);color:var(--green)}
+.benefit-item.included .icon::before{content:'✓'}
+.benefit-item.highlight .icon{background:var(--teal-l);color:var(--teal-d)}
+.benefit-item.highlight .icon::before{content:'★'}
+.benefit-item.not-included{opacity:.4}
+.benefit-item.not-included .icon{background:var(--mist);color:var(--smoke)}
+.benefit-item.not-included .icon::before{content:'—'}
+.benefit-item .text strong{display:block;font-weight:700;color:var(--ink);font-size:.8rem}
+.benefit-item .text span{font-size:.72rem;color:var(--slate)}
+
+.plan-highlight-box{background:var(--snow);border-radius:10px;padding:.8rem 1rem;margin-bottom:1.2rem;border-left:3px solid}
+.plan-p1 .plan-highlight-box{border-color:var(--teal)}
+.plan-p2 .plan-highlight-box{border-color:#0A7A8B}
+.plan-p3 .plan-highlight-box{border-color:var(--gold)}
+.plan-highlight-box p{font-size:.75rem;color:var(--slate);line-height:1.6}
+.plan-highlight-box strong{font-weight:700;color:var(--ink)}
+
+/* Plan CTA */
+.plan-cta{padding:1.2rem 1.5rem;border-top:1px solid var(--mist)}
+.plan-btn{display:block;text-align:center;padding:.95rem;border-radius:14px;font-size:.9rem;font-weight:700;text-decoration:none;transition:all .22s;letter-spacing:.01em}
+.plan-p1 .plan-btn{background:var(--teal);color:white}
+.plan-p1 .plan-btn:hover{background:var(--teal-d)}
+.plan-p2 .plan-btn{background:#0A7A8B;color:white}
+.plan-p2 .plan-btn:hover{background:#085A6E}
+.plan-p3 .plan-btn{background:var(--gold);color:white}
+.plan-p3 .plan-btn:hover{background:#A87020}
+.plan-note{font-size:.68rem;color:var(--smoke);text-align:center;margin-top:.6rem;line-height:1.5}
+
+/* SKINCARE */
+.protocol-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.protocol-items{display:flex;flex-direction:column;gap:1rem}
+.proto-item{background:white;border:1px solid var(--mist);border-radius:14px;padding:1.1rem 1.3rem;display:flex;gap:.9rem;align-items:flex-start;transition:all .2s}
+.proto-item:hover{border-color:var(--teal-l);transform:translateX(4px)}
+.proto-emoji{font-size:1.4rem;flex-shrink:0;margin-top:1px}
+.proto-h{font-size:.88rem;font-weight:700;margin-bottom:.25rem;color:var(--ink)}
+.proto-p{font-size:.76rem;color:var(--slate);line-height:1.6}
+.proto-badge{display:inline-flex;align-items:center;gap:.3rem;margin-top:.4rem;font-size:.62rem;font-weight:700;padding:2px 8px;border-radius:50px;background:var(--teal-l);color:var(--teal-d);text-transform:uppercase;letter-spacing:.06em}
+.protocol-brands{background:var(--navy);border-radius:18px;padding:2rem}
+.pb-title{font-family:var(--display);font-size:1.3rem;font-weight:700;color:white;margin-bottom:.4rem}
+.pb-sub{font-size:.78rem;color:rgba(255,255,255,.55);margin-bottom:1.5rem;line-height:1.6}
+.brand-pills{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.5rem}
+.brand-pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:.4rem 1rem;font-size:.75rem;font-weight:600;color:rgba(255,255,255,.85)}
+.pb-warning{background:rgba(200,144,42,.15);border:1px solid rgba(200,144,42,.3);border-radius:12px;padding:.9rem 1.1rem;font-size:.78rem;color:rgba(255,255,255,.8);line-height:1.65}
+.pb-warning strong{color:var(--gold);display:block;margin-bottom:.2rem}
+
+/* DOCTORS */
+.doctors{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+.doc-card{background:white;border:1px solid var(--mist);border-radius:18px;overflow:hidden;transition:all .25s}
+.doc-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(10,22,40,.09);border-color:var(--teal-l)}
+.doc-cover{height:72px;background:linear-gradient(135deg,var(--navy),#1a3a5c);display:flex;align-items:center;justify-content:center;font-size:2rem}
+.doc-body{padding:1.3rem}
+.doc-name{font-size:.98rem;font-weight:700;margin-bottom:.15rem;color:var(--ink)}
+.doc-spec{font-size:.65rem;color:var(--teal);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.65rem}
+.doc-bio{font-size:.76rem;color:var(--slate);line-height:1.65}
+.doc-creds{margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.4rem}
+.cred{background:var(--snow);border:1px solid var(--mist);font-size:.6rem;font-weight:700;color:var(--slate);padding:2px 8px;border-radius:50px;text-transform:uppercase;letter-spacing:.05em}
+
+/* TESTIMONIALS */
+.testis{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+.testi{background:white;border:1px solid var(--mist);border-radius:18px;padding:1.6rem;transition:all .25s}
+.testi:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(10,22,40,.07)}
+.testi-stars{color:var(--gold);font-size:.85rem;letter-spacing:1px;margin-bottom:.7rem}
+.testi-q{font-family:var(--display);font-size:2.2rem;color:var(--mist);line-height:1;margin-bottom:.3rem;font-style:italic}
+.testi-text{font-size:.86rem;color:var(--ink);line-height:1.75;font-style:italic;margin-bottom:1.2rem}
+.testi-author{display:flex;align-items:center;gap:.8rem}
+.testi-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--teal-l),var(--mist));display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.testi-name{font-size:.84rem;font-weight:700;color:var(--ink)}
+.testi-meta{font-size:.68rem;color:var(--smoke);font-family:var(--mono)}
+
+/* FAQ */
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.faq-item{background:white;border:1px solid var(--mist);border-radius:14px;padding:1.3rem 1.4rem;transition:all .25s}
+.faq-item:hover{border-color:var(--teal-l);box-shadow:0 6px 20px rgba(10,22,40,.06)}
+.faq-q{font-size:.9rem;font-weight:700;margin-bottom:.5rem;color:var(--ink)}
+.faq-a{font-size:.78rem;color:var(--slate);line-height:1.7}
+
+/* SOCIAL */
+.social-section{background:var(--navy);padding:3rem clamp(1rem,6vw,5rem)}
+.social-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem}
+.social-text strong{display:block;font-family:var(--display);font-size:1.5rem;font-weight:700;color:white;margin-bottom:.3rem}
+.social-text p{font-size:.85rem;color:rgba(255,255,255,.6);line-height:1.6}
+.social-links{display:flex;gap:1rem;flex-wrap:wrap}
+.social-btn{display:flex;align-items:center;gap:.7rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:.85rem 1.3rem;text-decoration:none;transition:all .2s}
+.social-btn:hover{background:rgba(255,255,255,.15);transform:translateY(-2px)}
+.social-btn-icon{font-size:1.4rem}
+.social-btn-text{display:flex;flex-direction:column}
+.social-btn-name{font-size:.75rem;font-weight:700;color:white}
+.social-btn-handle{font-size:.65rem;color:rgba(255,255,255,.55);font-family:var(--mono)}
+
+/* FINAL CTA */
+.final-cta{background:linear-gradient(135deg,var(--teal-d) 0%,var(--teal) 100%);padding:5rem clamp(1rem,6vw,5rem);text-align:center;position:relative;overflow:hidden}
+.final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 50%,rgba(255,255,255,.08) 0%,transparent 65%);pointer-events:none}
+.final-inner{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.final-h{font-family:var(--display);font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700;color:white;line-height:1.05;letter-spacing:-.02em;margin-bottom:.9rem}
+.final-h em{font-style:italic;color:rgba(255,255,255,.8)}
+.final-sub{font-size:.95rem;color:rgba(255,255,255,.82);line-height:1.75;margin-bottom:2rem}
+.final-btn{display:inline-flex;align-items:center;gap:.6rem;background:white;color:var(--teal-d);padding:1.1rem 2.8rem;border-radius:50px;font-size:1rem;font-weight:700;text-decoration:none;box-shadow:0 8px 36px rgba(0,0,0,.2);transition:all .22s;margin-bottom:1.5rem}
+.final-btn:hover{background:#F0FAFB;transform:translateY(-2px)}
+.final-micros{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap}
+.micro{display:flex;align-items:center;gap:.4rem;font-size:.76rem;color:rgba(255,255,255,.88);font-weight:500}
+.micro::before{content:'✓';font-weight:900}
+
+/* FOOTER */
+.footer{background:var(--navy);padding:3rem clamp(1rem,6vw,5rem) 1.8rem}
+.footer-top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.1)}
+.footer-desc{font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.75;margin-top:.8rem;max-width:230px}
+.footer-h{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.35);margin-bottom:1rem}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.footer-links a{font-size:.8rem;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:white}
+.footer-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem}
+.footer-copy{font-size:.72rem;color:rgba(255,255,255,.35)}
+.footer-social{display:flex;gap:1rem}
+.footer-social a{font-size:.72rem;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s}
+.footer-social a:hover{color:white}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;min-height:auto;padding-top:calc(64px + 2rem);padding-bottom:3rem}
+  .hero-right{display:none}
+  .steps{grid-template-columns:1fr 1fr}
+  .plans-grid{grid-template-columns:1fr}
+  .protocol-grid{grid-template-columns:1fr}
+  .doctors{grid-template-columns:1fr 1fr}
+  .testis{grid-template-columns:1fr}
+  .faq-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:700px){
+  .steps{grid-template-columns:1fr}
+  .doctors{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body style="background:#FAFCFF!important;color:#0A1628!important">
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a class="nav-logo" href="#">Dermá<span>tika</span></a>
+  <ul class="nav-links">
+    <li><a href="#como-funciona">Cómo funciona</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#medicos">Médicos</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a class="nav-cta" href="#planes">Ver planes →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">Telemedicina dermatológica · México</div>
+    <h1 class="hero-h1">
+      <span class="muted">Años sin solución.</span>
+      Piel clara.<br><em>Por fin.</em>
+    </h1>
+    <p class="hero-sub">Médico dermatólogo certificado SSA, tratamiento personalizado y tu medicamento en la puerta. Todo 100% en línea. Sin filas. Sin esperas.</p>
+    <div class="hero-cta-group">
+      <a class="btn-primary" href="#planes">Elegir mi plan →</a>
+      <a class="btn-ghost" href="#como-funciona">Ver cómo funciona ↓</a>
+    </div>
+    <div class="hero-proof">
+      <div class="hp-item"><div class="hp-val">48h</div><div class="hp-lbl">Envío a tu puerta</div></div>
+      <div class="hp-sep"></div>
+      <div class="hp-item"><div class="hp-val">100%</div><div class="hp-lbl">Médicos cert. SSA</div></div>
+      <div class="hp-sep"></div>
+      <div class="hp-item"><div class="hp-val">$370</div><div class="hp-lbl">Evaluación médica</div></div>
+      <div class="hp-sep"></div>
+      <div class="hp-item"><div class="hp-val">4–6</div><div class="hp-lbl">Meses tratamiento</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div style="position:relative;width:320px">
+      <div class="hero-card">
+        <div class="hc-top">
+          <div class="hc-brand">Dermátika</div>
+          <div class="hc-patient">Hola, Sofía 👋</div>
+          <div style="font-size:.72rem;color:rgba(255,255,255,.55)">Tu tratamiento está en camino</div>
+          <div class="hc-plan">★ Nova Esencial</div>
+        </div>
+        <div class="hc-steps">
+          <div class="hc-step"><div class="hc-dot done">✓</div><div><div class="hc-step-text">Evaluación completada</div><div class="hc-step-time">Hoy · 10:24 am</div></div></div>
+          <div class="hc-step"><div class="hc-dot done">✓</div><div><div class="hc-step-text">Dr. Ramírez revisó tu caso</div><div class="hc-step-time">Hoy · 11:05 am</div></div></div>
+          <div class="hc-step"><div class="hc-dot done">✓</div><div><div class="hc-step-text">Receta oficial emitida</div><div class="hc-step-time">Hoy · 11:06 am</div></div></div>
+          <div class="hc-step"><div class="hc-dot active">→</div><div><div class="hc-step-text">Medicamento en camino</div><div class="hc-step-time">Llega mañana</div></div></div>
+        </div>
+        <div class="hc-foot"><span>Seguimiento del Dr.</span><small>Día 7 · 14 · 30</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="section alt" id="como-funciona">
+  <div class="eyebrow">El proceso</div>
+  <h2 class="section-h">De cero a tratamiento <em>en 48 horas</em></h2>
+  <p class="section-p">Antes de pagar entiendes exactamente qué va a pasar. Sin sorpresas, sin letra chica. Elige tu plan, paga la evaluación y el médico hace el resto.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-h">Elige tu plan y paga la evaluación</div>
+      <div class="step-p">Selecciona el plan que mejor se adapte a tus necesidades. Pagas $370 MXN de evaluación médica. Si el médico te aprueba, ese monto se descuenta de tu plan.</div>
+      <div class="step-time">⏱ Pago en segundos</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-h">Llenas tu cuestionario médico</div>
+      <div class="step-p">Recibes el link del formulario por WhatsApp. Historial médico, peso, medicamentos y fotos de tu piel. El médico necesita esta información para evaluar tu caso.</div>
+      <div class="step-time">⏱ ~5 minutos</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-h">El médico evalúa y te contacta</div>
+      <div class="step-p">En menos de 24 horas recibes el resultado por WhatsApp. Si eres candidato, pagas el restante de tu plan y el médico emite tu receta oficial digital.</div>
+      <div class="step-time">⏱ Menos de 24h</div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-h">Tu medicamento llega + seguimiento</div>
+      <div class="step-p">Enviamos en caja discreta a tu puerta. Tu médico te acompaña con check-ins en día 7, 14 y 30. Desde mes 2 pagas el plan completo directamente.</div>
+      <div class="step-time">⏱ 24–48h envío</div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANES -->
+<section class="section" id="planes">
+  <div class="eyebrow">Nuestros planes</div>
+  <h2 class="section-h">Elige el plan que <em>se adapta a ti</em></h2>
+  <p class="section-p">Cada plan incluye evaluación médica, medicamento y seguimiento. Lo que cambia es la intensidad del tratamiento, la velocidad de respuesta y los beneficios adicionales.</p>
+
+  <div class="plans-grid">
+
+    <!-- NOVA ESENCIAL -->
+    <div class="plan-card plan-p1">
+      <div class="plan-head">
+        <div class="plan-tag">Plan 01 · Para empezar</div>
+        <div class="plan-name">Nova Esencial</div>
+        <div class="plan-tagline">Para quienes inician su tratamiento de forma controlada y segura</div>
+      </div>
+      <div class="plan-price-block">
+        <div class="plan-price">$1,245</div>
+        <div class="plan-period">MXN / mes<br>+ envío cotizado<br><span style="color:var(--teal);font-weight:700">Eval. $370 se descuenta</span></div>
+      </div>
+      <div class="plan-body">
+        <div class="plan-who">"Para ti que empiezas este camino por primera vez"</div>
+        <div class="benefits-list">
+          <div class="benefit-item included">
+            <div class="icon"></div>
+            <div class="text"><strong>Evaluación médica completa</strong><span>Dermatólogo certificado SSA revisa tu caso</span></div>
+          </div>
+          <div class="benefit-item included">
+            <div class="icon"></div>
+            <div class="text"><strong>Medicamento de inicio incluido</strong><span>El adecuado para tu caso específico</span></div>
+          </div>
+          <div class="benefit-item included">
+            <div class="icon"></div>
+            <div class="text"><strong>Receta médica oficial digital</strong><span>Con e.firma del médico, 100% válida</span></div>
+          </div>
+          <div class="benefit-item included">
+            <div class="icon"></div>
+            <div class="text"><strong>Seguimiento día 7, 14 y 30</strong><span>Check-ins automáticos por WhatsApp</span></div>
+          </div>
+          <div class="benefit-item included">
+            <div class="icon"></div>
+            <div class="text"><strong>WhatsApp con el médico</strong><span>Respuesta en menos de 48 horas</span></div>
+          </div>
+          <div class="benefit-item included">
+            <div class="icon"></div>
+            <div class="text"><strong>Protocolo skincare básico</strong><span>Indicaciones de cuidado durante el tratamiento</span></div>
+          </div>
+          <div class="benefit-item included">
+            <div class="icon"></div>
+            <div class="text"><strong>Envío discreto a tu puerta</strong><span>Caja neutra sin identificación del contenido</span></div>
+          </div>
+          <div class="benefit-item not-included">
+            <div class="icon"></div>
+            <div class="text"><strong>Ajuste de dosis mensual</strong><span>Disponible en Nova Avanzado</span></div>
+          </div>
+          <div class="benefit-item not-included">
+            <div class="icon"></div>
+            <div class="text"><strong>Formulación premium de absorción</strong><span>Disponible en Nova Elite</span></div>
+          </div>
+        </div>
+        <div class="plan-highlight-box">
+          <p><strong>Ideal para:</strong> Primera vez con este tipo de tratamiento, acné moderado, quienes prefieren iniciar de forma gradual y controlada.</p>
+        </div>
+      </div>
+      <div class="plan-cta">
+        <a class="plan-btn" href="https://mpago.la/25LBNRJ" target="_blank">Iniciar con Nova Esencial →</a>
+        <div class="plan-note">Pagas $370 de evaluación · Si eres candidato descuenta del plan<br>Restante a pagar: $875 MXN + envío</div>
+      </div>
+    </div>
+
+    <!-- NOVA AVANZADO -->
+    <div class="plan-card plan-p2 featured">
+      <div class="plan-head">
+        <div class="plan-tag">Plan 02 · Mayor intensidad</div>
+        <div class="plan-name">Nova Avanzado</div>
+        <div class="plan-tagline">Para quienes requieren una respuesta clínica más profunda y consistente</div>
+      </div>
+      <div class="plan-price-block">
+        <div class="plan-price">$1,559</div>
+        <div class="plan-period">MXN / mes<br>+ envío cotizado<br><span style="color:#0A7A8B;font-weight:700">Eval. $370 se descuenta</span></div>
+      </div>
+      <div class="plan-body">
+        <div class="plan-who">"Para ti que necesitas más intensidad y resultados más rápidos"</div>
+        <div class="benefits-list">
+          <div class="benefit-item included">
+            <div class="icon"></div>
+            <div class="text"><strong>Todo lo de Nova Esencial</strong><span>Evaluación, medicamento, receta, seguimiento</span></div>
+          </div>
+          <div class="benefit-item highlight">
+            <div class="icon"></div>
+            <div class="text"><strong>Protocolo de mayor intensidad</strong><span>Dosis más alta para resultados más profundos</span></div>
+          </div>
+          <div class="benefit-item highlight">
+            <div class="icon"></div>
+            <div class="text"><strong>WhatsApp prioritario 24h</strong><span>Respuesta garantizada en menos de 24 horas</span></div>
+          </div>
+          <div class="benefit-item highlight">
+            <div class="icon"></div>
+            <div class="text"><strong>Ajuste de dosis mensual</strong><span>El médico optimiza tu dosis cada ciclo</span></div>
+          </div>
+          <div class="benefit-item highlight">
+            <div class="icon"></div>
+            <div class="text"><strong>Protocolo skincare completo</strong><span>Rutina detallada para maximizar resultados</span></div>
+          </div>
+          <div class="benefit-item highlight">
+            <div class="icon"></div>
+            <div class="text"><strong>Seguimiento reforzado</strong><span>Monitoreo más cercano ante cambios de dosis</span></div>
+          </div>
+          <div class="benefit-item included">
+            <div class="icon"></div>
+            <div class="text"><strong>Envío discreto a tu puerta</strong><span>Caja neutra sin identificación del contenido</span></div>
+          </div>
+          <div class="benefit-item not-included">
+            <div class="icon"></div>
+            <div class="text"><strong>Formulación premium de absorción</strong><span>Disponible en Nova Elite</span></div>
+          </div>
+        </div>
+        <div class="plan-highlight-box">
+          <p><strong>Ideal para:</strong> Acné severo o persistente, quienes han probado otros tratamientos sin éxito y necesitan una respuesta clínica más agresiva y rápida.</p>
+        </div>
+      </div>
+      <div class="plan-cta">
+        <a class="plan-btn" href="https://mpago.la/1Gtavtr" target="_blank">Iniciar con Nova Avanzado →</a>
+        <div class="plan-note">Pagas $370 de evaluación · Si eres candidato descuenta del plan<br>Restante a pagar: $1,189 MXN + envío</div>
+      </div>
+    </div>
+
+    <!-- NOVA ELITE -->
+    <div class="plan-card plan-p3">
+      <div class="plan-head">
+        <div class="plan-tag">Plan 03 · Máxima tecnología</div>
+        <div class="plan-name">Nova Elite</div>
+        <div class="plan-tagline">La formulación de mayor absorción disponible, para quienes exigen lo mejor</div>
+      </div>
+      <div class="plan-price-block">
+        <div class="plan-price">$2,090</div>
+        <div class="plan-period">MXN / mes<br>+ envío cotizado<br><span style="color:var(--gold);font-weight:700">Eval. $370 se descuenta</span></div>
+      </div>
+      <div class="plan-body">
+        <div class="plan-who">"Para ti que quieres la formulación más avanzada y sin restricciones"</div>
+        <div class="benefits-list">
+          <div class="benefit-item included">
+            <div class="icon"></div>
+            <div class="text"><strong>Todo lo de Nova Avanzado</strong><span>Evaluación, medicamento, receta, seguimiento reforzado</span></div>
+          </div>
+          <div class="benefit-item highlight">
+            <div class="icon"></div>
+            <div class="text"><strong>Formulación Lidose de máxima absorción</strong><span>Mayor biodisponibilidad disponible en el mercado</span></div>
+          </div>
+          <div class="benefit-item highlight">
+            <div class="icon"></div>
+            <div class="text"><strong>Sin restricción de alimentos</strong><span>No requiere ingerirse con alimentos grasos</span></div>
+          </div>
+          <div class="benefit-item highlight">
+            <div class="icon"></div>
+            <div class="text"><strong>WhatsApp prioritario 12h</strong><span>Respuesta garantizada en menos de 12 horas</span></div>
+          </div>
+          <div class="benefit-item highlight">
+            <div class="icon"></div>
+            <div class="text"><strong>Protocolo skincare premium</strong><span>Rutina personalizada con productos específicos</span></div>
+          </div>
+          <div class="benefit-item highlight">
+            <div class="icon"></div>
+            <div class="text"><strong>Consulta de ajuste quincenal</strong><span>El médico revisa tu progreso cada 15 días</span></div>
+          </div>
+          <div class="benefit-item highlight">
+            <div class="icon"></div>
+            <div class="text"><strong>Absorción consistente ciclo a ciclo</strong><span>Resultados más predecibles y uniformes</span></div>
+          </div>
+          <div class="benefit-item highlight">
+            <div class="icon"></div>
+            <div class="text"><strong>Envío express prioritario</strong><span>Primero en la cola de preparación y envío</span></div>
+          </div>
+        </div>
+        <div class="plan-highlight-box">
+          <p><strong>Ideal para:</strong> Quienes buscan la máxima eficacia, tienen restricciones dietéticas, intolerancia gastrointestinal o simplemente quieren lo mejor disponible.</p>
+        </div>
+      </div>
+      <div class="plan-cta">
+        <a class="plan-btn" href="https://mpago.la/2zVFzb6" target="_blank">Iniciar con Nova Elite →</a>
+        <div class="plan-note">Pagas $370 de evaluación · Si eres candidato descuenta del plan<br>Restante a pagar: $1,720 MXN + envío</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="background:var(--teal-l);border:1px solid rgba(11,163,187,.2);border-radius:14px;padding:1.2rem 1.5rem;text-align:center;font-size:.85rem;color:var(--teal-d);line-height:1.7">
+    <strong>¿Cómo funciona la evaluación de $370?</strong> Pagas $370 para que el médico evalúe tu caso. Si eres candidato, ese monto se descuenta de tu plan — solo pagas el restante. Si no eres candidato, los $370 cubrieron el trabajo médico. Sin letra chica.
+  </div>
+</section>
+
+<!-- SKINCARE PROTOCOL -->
+<section class="section alt" id="protocolo">
+  <div class="eyebrow">Protocolo de cuidado</div>
+  <h2 class="section-h">Parte del tratamiento — <em>no opcional</em></h2>
+  <p class="section-p">Tu médico incluye un protocolo de skincare obligatorio. Seguirlo hace la diferencia entre buenos y extraordinarios resultados.</p>
+  <div class="protocol-grid">
+    <div class="protocol-items">
+      <div class="proto-item"><div class="proto-emoji">☀️</div><div><div class="proto-h">Bloqueador solar SPF 50+</div><div class="proto-p">Obligatorio cada mañana sin excepción. Tu piel es más sensible al sol durante el tratamiento. Sin protección, los resultados se comprometen.</div><div class="proto-badge">⚠️ Obligatorio diario</div></div></div>
+      <div class="proto-item"><div class="proto-emoji">💧</div><div><div class="proto-h">Hidratante facial sin fragancia</div><div class="proto-p">Mañana y noche. La resequedad es el efecto secundario más común y más manejable con hidratación constante.</div><div class="proto-badge">⚠️ Obligatorio 2x día</div></div></div>
+      <div class="proto-item"><div class="proto-emoji">👄</div><div><div class="proto-h">Bálsamo labial</div><div class="proto-p">Varias veces al día. Los labios son lo primero que reseca el tratamiento. Tenlo siempre contigo.</div><div class="proto-badge">Varias veces al día</div></div></div>
+      <div class="proto-item"><div class="proto-emoji">🧼</div><div><div class="proto-h">Limpiador suave sin jabón</div><div class="proto-p">Nada agresivo, nada con fragancia o alcohol. Tu piel está en proceso de transformación — cuídala.</div><div class="proto-badge">Obligatorio en Avanzado y Elite</div></div></div>
+    </div>
+    <div class="protocol-brands">
+      <div class="pb-title">Marcas recomendadas por tu médico</div>
+      <div class="pb-sub">Disponibles en Farmacias del Ahorro, Walmart o Amazon MX. No necesitas marcas costosas.</div>
+      <div class="brand-pills">
+        <div class="brand-pill">CeraVe</div><div class="brand-pill">La Roche-Posay</div><div class="brand-pill">Cetaphil</div><div class="brand-pill">Eucerin</div><div class="brand-pill">Bioderma</div><div class="brand-pill">Neutrogena</div>
+      </div>
+      <div class="pb-warning"><strong>⚠️ El médico lo indica expresamente</strong>El protocolo es parte de tu tratamiento médico — no es opcional. No seguirlo puede reducir la efectividad y aumentar efectos secundarios.</div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTORS -->
+<section class="section" id="medicos">
+  <div class="eyebrow">Nuestro equipo médico</div>
+  <h2 class="section-h">Médicos reales. <em>Certificados. Comprometidos.</em></h2>
+  <p class="section-p">Cada caso es revisado por un médico certificado ante la SSA. No es un algoritmo — es un profesional que firma tu receta con su nombre y cédula.</p>
+  <div class="doctors">
+    <div class="doc-card"><div class="doc-cover">👨‍⚕️</div><div class="doc-body"><div class="doc-name">Dr. Alejandro Ramírez</div><div class="doc-spec">Dermatología · Especialista en Acné</div><div class="doc-bio">10 años de experiencia en dermatología clínica. UNAM con especialidad en Hospital General de México. Más de 2,000 casos de acné tratados.</div><div class="doc-creds"><span class="cred">Cédula SSA</span><span class="cred">UNAM</span><span class="cred">ADM</span></div></div></div>
+    <div class="doc-card"><div class="doc-cover">👩‍⚕️</div><div class="doc-body"><div class="doc-name">Dra. Mariana Solís</div><div class="doc-spec">Dermatología · Piel Sensible</div><div class="doc-bio">Especialista en pacientes con piel reactiva. Maestría en dermatología pediátrica y del adulto. Experta en protocolos de baja dosis.</div><div class="doc-creds"><span class="cred">Cédula SSA</span><span class="cred">IMSS</span><span class="cred">Tec de Monterrey</span></div></div></div>
+    <div class="doc-card"><div class="doc-cover">👨‍⚕️</div><div class="doc-body"><div class="doc-name">Dr. Carlos Méndez</div><div class="doc-spec">Dermatología · Telemedicina</div><div class="doc-bio">Pionero en telemedicina dermatológica en México. Instituto Dermatológico de Jalisco. Más de 1,500 consultas digitales en 2 años.</div><div class="doc-creds"><span class="cred">Cédula SSA</span><span class="cred">U de G</span><span class="cred">IDJ</span></div></div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section alt">
+  <div class="eyebrow">Pacientes reales</div>
+  <h2 class="section-h">Historias que <em>no necesitan filtros</em></h2>
+  <div class="testis">
+    <div class="testi"><div class="testi-stars">★★★★★</div><div class="testi-q">"</div><div class="testi-text">Llevaba 4 años yendo a dermatólogos sin resultados. En el mes 3 con Dermátika mi piel cambió completamente. El Dr. Ramírez estuvo disponible cuando tuve dudas.</div><div class="testi-author"><div class="testi-av">👩</div><div><div class="testi-name">Sofía M.</div><div class="testi-meta">CDMX · Nova Esencial · Mes 4</div></div></div></div>
+    <div class="testi"><div class="testi-stars">★★★★★</div><div class="testi-q">"</div><div class="testi-text">No podía pagar la consulta privada más el medicamento. Con Dermátika todo me costó menos y el proceso fue rapidísimo. En 2 días tenía mi tratamiento en casa.</div><div class="testi-author"><div class="testi-av">👨</div><div><div class="testi-name">Diego R.</div><div class="testi-meta">Guadalajara · Nova Avanzado · Mes 2</div></div></div></div>
+    <div class="testi"><div class="testi-stars">★★★★★</div><div class="testi-q">"</div><div class="testi-text">Tenía miedo por los efectos secundarios. La Dra. Solís me explicó todo, el seguimiento fue impecable. Mi piel al mes 5 es irreconocible — en el mejor sentido.</div><div class="testi-author"><div class="testi-av">👩</div><div><div class="testi-name">Ana L.</div><div class="testi-meta">Monterrey · Nova Elite · Mes 5</div></div></div></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="eyebrow">Preguntas frecuentes</div>
+  <h2 class="section-h">Todas tus dudas, <em>respondidas.</em></h2>
+  <div class="faq-grid">
+    <div class="faq-item"><div class="faq-q">¿Cómo funciona la evaluación de $370?</div><div class="faq-a">Pagas $370 para que el médico evalúe tu caso. Si eres candidato, ese monto se descuenta de tu plan — solo pagas el restante. Si no eres candidato, los $370 cubrieron el trabajo médico real.</div></div>
+    <div class="faq-item"><div class="faq-q">¿Cuánto pago en total el primer mes?</div><div class="faq-a">El precio del plan que elegiste. Ejemplo con Nova Esencial: $370 evaluación + $875 restante = $1,245 total + envío. Nova Avanzado: $370 + $1,189 = $1,559. Nova Elite: $370 + $1,720 = $2,090. Desde el mes 2 pagas el plan completo directamente.</div></div>
+    <div class="faq-item"><div class="faq-q">¿Qué pasa si el médico no me aprueba?</div><div class="faq-a">Los $370 cubrieron el trabajo médico real al revisar tu caso. No se realizan reembolsos. Te informamos la razón con claridad y te orientamos sobre alternativas.</div></div>
+    <div class="faq-item"><div class="faq-q">¿Es legal recibir el tratamiento así?</div><div class="faq-a">Sí, 100% legal. Un médico certificado ante la SSA emite la receta oficial digital. Cumplimos todos los protocolos de medicamentos controlados en México.</div></div>
+    <div class="faq-item"><div class="faq-q">¿Es discreta la entrega?</div><div class="faq-a">Totalmente. Tu pedido llega en caja neutra sin referencia al contenido ni al remitente. Solo tú y tu médico tienen acceso a tu información médica.</div></div>
+    <div class="faq-item"><div class="faq-q">¿Cuánto cuesta el envío?</div><div class="faq-a">Se cotiza en tiempo real según tu código postal antes de confirmar. Ves el costo exacto del carrier (DHL / FedEx / Estafeta) antes de pagar. Sin sorpresas.</div></div>
+    <div class="faq-item"><div class="faq-q">¿Puedo cancelar cuando quiera?</div><div class="faq-a">Sí. Sin contrato ni permanencia mínima. Si tu tratamiento termina en 4 meses, cancelas en 4. Sin penalizaciones de ningún tipo.</div></div>
+    <div class="faq-item"><div class="faq-q">¿Cuál plan me conviene?</div><div class="faq-a">Depende de la severidad de tu acné y tus necesidades. Nova Esencial es ideal para empezar. Nova Avanzado si necesitas mayor intensidad. Nova Elite si quieres la formulación más avanzada sin restricciones.</div></div>
+  </div>
+</section>
+
+<!-- SOCIAL MEDIA -->
+<div class="social-section">
+  <div class="social-inner">
+    <div class="social-text">
+      <strong>Síguenos en redes</strong>
+      <p>Contenido educativo sobre tratamientos dermatológicos,<br>casos reales y tips de cuidado de piel.</p>
+    </div>
+    <div class="social-links">
+      <a class="social-btn" href="https://instagram.com/dermatikaofficial" target="_blank">
+        <div class="social-btn-icon">📸</div>
+        <div class="social-btn-text">
+          <div class="social-btn-name">Instagram</div>
+          <div class="social-btn-handle">@dermatikaofficial</div>
+        </div>
+      </a>
+      <a class="social-btn" href="https://tiktok.com/@dermatika6" target="_blank">
+        <div class="social-btn-icon">🎵</div>
+        <div class="social-btn-text">
+          <div class="social-btn-name">TikTok</div>
+          <div class="social-btn-handle">@dermatika6</div>
+        </div>
+      </a>
+      <a class="social-btn" href="https://wa.me/521TUNUMERO" target="_blank">
+        <div class="social-btn-icon">💬</div>
+        <div class="social-btn-text">
+          <div class="social-btn-name">WhatsApp</div>
+          <div class="social-btn-handle">Escríbenos directo</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-inner">
+    <h2 class="final-h">Tu piel puede cambiar.<br><em>Empieza hoy.</em></h2>
+    <p class="final-sub">Elige el plan que se adapte a ti. Paga la evaluación y en menos de 24 horas sabes si eres candidato.</p>
+    <a class="final-btn" href="#planes">Ver los planes →</a>
+    <div class="final-micros">
+      <div class="micro">Médicos certificados SSA</div>
+      <div class="micro">Receta oficial digital</div>
+      <div class="micro">Envío discreto</div>
+      <div class="micro">Sin contrato</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div>
+      <div style="font-family:var(--display);font-size:1.4rem;font-weight:700;color:white">Dermá<span style="color:var(--teal)">tika</span></div>
+      <div class="footer-desc">Telemedicina dermatológica. Acceso real al tratamiento que funciona — desde donde estés, cuando lo necesites.</div>
+    </div>
+    <div>
+      <div class="footer-h">Planes</div>
+      <ul class="footer-links">
+        <li><a href="#planes">Nova Esencial</a></li>
+        <li><a href="#planes">Nova Avanzado</a></li>
+        <li><a href="#planes">Nova Elite</a></li>
+        <li><a href="#planes">Comparar planes</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-h">Información</div>
+      <ul class="footer-links">
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#medicos">Nuestros médicos</a></li>
+        <li><a href="#protocolo">Protocolo de cuidado</a></li>
+        <li><a href="#faq">Preguntas frecuentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-h">Contacto</div>
+      <ul class="footer-links">
+        <li><a href="https://instagram.com/dermatikaofficial" target="_blank">@dermatikaofficial</a></li>
+        <li><a href="https://tiktok.com/@dermatika6" target="_blank">@dermatika6</a></li>
+        <li><a href="https://wa.me/521TUNUMERO" target="_blank">WhatsApp</a></li>
+        <li><a href="mailto:hola.dermatika@gmail.com">hola.dermatika@gmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bot">
+    <div class="footer-copy">© 2025 Dermátika · Telemedicina Dermatológica · México</div>
+    <div class="footer-social">
+      <a href="https://instagram.com/dermatikaofficial" target="_blank">Instagram</a>
+      <a href="https://tiktok.com/@dermatika6" target="_blank">TikTok</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>40)});
+</script>
+</body>
+</html>
